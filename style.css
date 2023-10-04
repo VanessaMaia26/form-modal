@@ -118,7 +118,7 @@ button:hover {
 
 /* Modal */
 
-.modal-wrapper .open {
+.modal-wrapper.open {
     opacity: 1;
     visibility: visible;
 }
@@ -129,7 +129,7 @@ button:hover {
     background-color: rgba(0, 0, 0, 0.7);
 
     display: grid;
-    place-content: content;
+    place-content: center;
 
     opacity: 0;
     visibility: hidden;
@@ -154,4 +154,21 @@ button:hover {
 
 .modal button:hover {
     transform: scale(1.1);
+}
+
+/* Alert error*/
+
+.alert-error {
+    position: absolute;
+    background-color: var(--bg-error);
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: var(--tt-error);
+    padding: .8rem 0;
+    font-weight: bold;
+
+    visibility: hidden;
+    opacity: 0;
 }
