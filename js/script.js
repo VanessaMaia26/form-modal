@@ -1,9 +1,13 @@
 import { Modal } from './modal.js';
-import "./alert-erros.js";
+import { AlertError } from "./alert-error.js";
+import { IMC, notANumber } from "./utils.js";
 
 const form = document.querySelector('form');
 const inputWeight = document.querySelector('#weight');
 const inputHeight = document.querySelector('#height');
+
+inputWeight.oninput = () => AlertError.close();
+inputHeight.oninput = () => AlertError.close();
 
 form.onsubmit = event => {
     event.preventDefault();
@@ -11,23 +15,22 @@ form.onsubmit = event => {
     const weight = inputWeight.value;
     const height = inputHeight.value;
 
-    const showAlertError = notANumber(weight) || notANumber(height);
+    const weightOrHeightIsNotANumber = notANumber(weight) || notANumber(height);
 
-    if (showAlertError) {
-        console.log('mostrar o alerta erro')
+    if (weightOrHeightIsNotANumber) {
+        AlertError.open()
+        return;
     };
 
-    const result = IMC(weight, height);
+    AlertError.close()
+
+    const result = cauculateIMC(weight, height);
+    displayResultMessage(result);
+};
+
+function displayResultMessage(result) {
     const message = `Seu IMC é de ${result}`;
 
     Modal.message.innerText = message;
-    modalWrapper.classList.add('open');
-};
-
-function notANumber(value) {
-    return isNaN(value) || value == ""
-};
-
-function IMC(weight, height) {
-    return (weight / ((height / 100) ** 2)).toFixed(2);
+    Modal.open();
 };
